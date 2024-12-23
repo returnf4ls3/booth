@@ -19,7 +19,7 @@ export default function Home() {
       const questionData = response.data.data;
 
       setButtons(
-        Array.from({ length: 40 }, (_, i) => ({
+        Array.from({ length: 50 }, (_, i) => ({
           id: i + 1,
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
           usedInSchema: questionData.some((q: any) => q.number === i + 1 && q.isUsed),
@@ -46,9 +46,12 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen w-full bg-gradient-custom from-blue-400 via-purple-500 to-pink-500 flex flex-wrap gap-4 justify-center items-center p-4">
+    <div className="min-h-screen w-full bg-gradient-to-b from-green-600 via-red-500 to-white flex flex-wrap gap-4 justify-center items-center p-4">
+      <h1 className="w-full text-center text-4xl font-bold text-white mb-8">
+        🎄 Merry Christmas! 🎅
+      </h1>
       {buttons.length > 0 &&
-        Array.from({ length: 4 }).map((_, rowIndex) => (
+        Array.from({ length: 5 }).map((_, rowIndex) => (
           <div
             key={rowIndex}
             className="flex gap-4 justify-center w-full"
@@ -60,11 +63,11 @@ export default function Home() {
                 disabled={button.usedInSchema}
                 className={`w-20 h-20 text-lg rounded-md font-semibold shadow-lg transition ${
                   button.usedInSchema
-                    ? "bg-gray-400 text-red-500 cursor-not-allowed"
-                    : "bg-blue-600 text-white hover:bg-blue-700"
+                    ? "bg-white text-gray-400 cursor-not-allowed border-2 border-gray-300"
+                    : "bg-red-600 text-white hover:bg-green-700"
                 }`}
               >
-                {button.usedInSchema ? "X" : `${button.id}`}
+                {button.usedInSchema ? "❌" : `🎁 ${button.id}`}
               </button>
             ))}
           </div>

@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import axios from "axios";
@@ -36,31 +36,40 @@ const ClientComponent = ({ personData, questionData }: ClientComponentProps) => 
     }
   };
 
-  const handleEnter = async (e: any) => {
+  const handleEnter = (e: any) => {
     if (e.code === 'Enter') {
-      setCount((value) => value + 1);
-      if (count >= 1) {
-        handleGoBack();
+      if (e.nativeEvent.isComposing === false) {
+        e.preventDefault();
+        setCount((prevCount) => prevCount + 1);
       }
     }
-    if (e.code === 'Enter' && count <= 1) {
-      if (answer === personData.name) {
-        setIsCorrect(true);
-        try {
-          await axios.patch(`/api/question?number=${questionData.number}`, { isUsed: true });
-        } catch (error) {
-          console.error("Failed to update question status", error);
-        }
-      } else {
-        setIsCorrect(false);
-        try {
-          await axios.patch(`/api/question?number=${questionData.number}`, { isUsed: true });
-        } catch (error) {
-          console.error("Failed to update question status", error);
+  };
+
+  useEffect(() => {
+    const checkAnswer = async () => {
+      if (count === 1) {
+        if (answer === personData.name) {
+          setIsCorrect(true);
+          try {
+            await axios.patch(`/api/question?number=${questionData.number}`, { isUsed: true });
+          } catch (error) {
+            console.error("Failed to update question status", error);
+          }
+        } else {
+          setIsCorrect(false);
         }
       }
+    };
+
+    checkAnswer();
+
+  }, [count, answer, personData.name, questionData.number]);
+
+  useEffect(() => {
+    if (count === 2) {
+      handleGoBack();
     }
-  }
+  }, [count]);
 
   const handleGoBack = () => {
     router.push('/');
