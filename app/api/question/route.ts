@@ -7,13 +7,13 @@ export async function GET(req: Request) {
         const numberParam = url.searchParams.get("number");
 
         if (!numberParam) {
-        const data = await prisma.question.findMany();
+            const data = await prisma.question.findMany();
 
-        if (!data || data.length === 0) {
-            return NextResponse.json({ success: false, error: "No data found" }, { status: 404 });
-        }
+            if (!data || data.length === 0) {
+                return NextResponse.json({ success: false, error: "No data found" }, { status: 404 });
+            }
 
-        return NextResponse.json({ success: true, data }, { status: 200 });
+            return NextResponse.json({ success: true, data }, { status: 200 });
         }
 
         const number = parseInt(numberParam, 10);

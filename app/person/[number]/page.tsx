@@ -29,7 +29,7 @@ export default async function Page({ params }: { params: { number: number } }) {
 
   if (!personData?.success || !questionData?.data) {
     return (
-      <div className="h-screen flex flex-col items-center justify-center bg-gray-100 text-red-500">
+      <div className="min-h-screen flex flex-col items-center justify-center bg-gray-100 text-red-500">
         <h2 className="text-2xl font-bold">인물 정보를 찾을 수 없습니다.</h2>
         <p>잘못된 번호일 수 있습니다: {number}</p>
       </div>

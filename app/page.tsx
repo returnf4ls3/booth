@@ -46,14 +46,14 @@ export default function Home() {
   };
 
   return (
-    <div className="h-screen w-full bg-gradient-custom from-blue-400 via-purple-500 to-pink-500 flex flex-wrap gap-4 justify-center items-center p-4">
+    <div className="min-h-screen w-full bg-gradient-custom from-blue-400 via-purple-500 to-pink-500 flex flex-wrap gap-4 justify-center items-center p-4">
       {buttons.length > 0 &&
-        Array.from({ length: 2 }).map((_, rowIndex) => (
+        Array.from({ length: 4 }).map((_, rowIndex) => (
           <div
             key={rowIndex}
             className="flex gap-4 justify-center w-full"
           >
-            {buttons.slice(rowIndex * 20, (rowIndex + 1) * 20).map((button) => (
+            {buttons.slice(rowIndex * 10, (rowIndex + 1) * 10).map((button) => (
               <button
                 key={button.id}
                 onClick={() => handleButtonClick(button.id)}
