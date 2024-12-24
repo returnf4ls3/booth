@@ -9,7 +9,7 @@ export default async function Page({ params }: { params: { number: number } }) {
       const response = await axios.get(`http://127.0.0.1:3000/api/person?number=${number}`);
       return response.data;
     } catch (error) {
-      console.error(error);
+      //console.error(error);
       return null;
     }
   };
@@ -19,7 +19,7 @@ export default async function Page({ params }: { params: { number: number } }) {
       const response = await axios.get(`http://127.0.0.1:3000/api/question?number=${number}`);
       return response.data;
     } catch (error) {
-      console.error(error);
+      //console.error(error);
       return null;
     }
   };
@@ -27,10 +27,10 @@ export default async function Page({ params }: { params: { number: number } }) {
   const personData = await fetchPersonData(number);
   const questionData = await fetchQuestionData(number);
 
-  if (!personData?.success || !questionData?.data) {
+  if (!personData?.success || !questionData?.data || personData === null || questionData === null) {
     return (
-      <div className="min-h-screen flex flex-col items-center justify-center bg-gray-100 text-red-500">
-        <h2 className="text-2xl font-bold">인물 정보를 찾을 수 없습니다.</h2>
+      <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-b from-green-600 via-red-500 to-white text-white">
+        <h2 className="text-2xl font-bold">인물 정보를 찾을 수 없습니다.</h2> 
         <p>잘못된 번호일 수 있습니다: {number}</p>
       </div>
     );

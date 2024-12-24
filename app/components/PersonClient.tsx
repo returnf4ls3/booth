@@ -33,6 +33,11 @@ const ClientComponent = ({ personData, questionData }: ClientComponentProps) => 
       }
     } else {
       setIsCorrect(false);
+      try {
+        await axios.patch(`/api/question?number=${questionData.number}`, { isUsed: true });
+      } catch (error) {
+        console.error("Failed to update question status", error);
+      }
     }
   };
 
@@ -57,6 +62,11 @@ const ClientComponent = ({ personData, questionData }: ClientComponentProps) => 
           }
         } else {
           setIsCorrect(false);
+          try {
+            await axios.patch(`/api/question?number=${questionData.number}`, { isUsed: true });
+          } catch (error) {
+            console.error("Failed to update question status", error);
+          }
         }
       }
     };
@@ -76,9 +86,9 @@ const ClientComponent = ({ personData, questionData }: ClientComponentProps) => 
   };
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-custom from-green-400 via-blue-500 to-purple-600 text-white">
+    <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-b from-green-600 via-red-500 to-white text-white">
       <h1 className="text-4xl font-bold mb-4">{personData.number}번</h1>
-      <Image alt="image" src={personData.imageUrl} width={500} height={500} />
+      <Image className="rounded-xl" alt="image" src={personData.imageUrl} width={500} height={500} />
       <p className="text-lg mt-2">{questionData.text}</p>
 
       <div className="flex flex-col pt-4 items-center justify-center">
@@ -97,16 +107,15 @@ const ClientComponent = ({ personData, questionData }: ClientComponentProps) => 
           제출
         </button>
         {isCorrect !== null && (
-        <div className="mt-4 text-xl">
+        <div className="mt-4 text-xl flex flex-col text-center items-center">
           {isCorrect ? (
             <>
               <p className="text-green-500">정답!</p>
-              <p>{personData.name}</p>
+              <p className="text-black">{personData.name}</p>
             </>
           ) : (
             <>
               <p className="text-red-500">오답!</p>
-              <p>{personData.name}</p>
             </>
           )}
           </div>
