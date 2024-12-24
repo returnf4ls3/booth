@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import axios from "axios";
@@ -21,6 +21,8 @@ const ClientComponent = ({ personData, questionData }: ClientComponentProps) => 
   const [answer, setAnswer] = useState("");
   const [isCorrect, setIsCorrect] = useState<boolean | null>(null);
   const [count, setCount] = useState(0);
+  const correctSoundRef = useRef<HTMLAudioElement | null>(null);
+  const incorrectSoundRef = useRef<HTMLAudioElement | null>(null);
   const router = useRouter();
 
   const handleSubmit = async () => {
@@ -81,6 +83,18 @@ const ClientComponent = ({ personData, questionData }: ClientComponentProps) => 
     }
   }, [count]);
 
+  useEffect(() => {
+    if (isCorrect === false && incorrectSoundRef.current) {
+      incorrectSoundRef.current.play();
+    }
+  }, [isCorrect]);
+
+  useEffect(() => {
+    if (isCorrect === true && correctSoundRef.current) {
+      correctSoundRef.current.play();
+    }
+  }, [isCorrect]);
+
   const handleGoBack = () => {
     router.push('/');
   };
@@ -112,10 +126,12 @@ const ClientComponent = ({ personData, questionData }: ClientComponentProps) => 
             <>
               <p className="text-green-500">정답!</p>
               <p className="text-black">{personData.name}</p>
+              <audio ref={correctSoundRef} autoPlay src="/correct.mp3" />
             </>
           ) : (
             <>
               <p className="text-red-500">오답!</p>
+              <audio ref={incorrectSoundRef} autoPlay src="/laugh.mp3" />
             </>
           )}
           </div>

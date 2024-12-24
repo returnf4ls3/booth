@@ -11,10 +11,10 @@ export default {
       backgroundImage: {
         'gradient-custom': `
           linear-gradient(
-            to bottom right,
-            rgba(255, 122, 89, 0.8),
-            rgba(255, 170, 145, 0.7),
-            rgba(183, 102, 223, 0.9)
+            to bottom,
+            rgba(22, 163, 74, 0.8),
+            rgba(239, 68, 68, 0.7),
+            rgba(255, 255, 255, 0.9)
           )
         `,
       },

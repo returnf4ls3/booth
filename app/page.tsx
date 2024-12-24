@@ -19,7 +19,7 @@ export default function Home() {
       const questionData = response.data.data;
 
       setButtons(
-        Array.from({ length: 50 }, (_, i) => ({
+        Array.from({ length: 60 }, (_, i) => ({
           id: i + 1,
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
           usedInSchema: questionData.some((q: any) => q.number === i + 1 && q.isUsed),
@@ -51,7 +51,7 @@ export default function Home() {
         🎄 Merry Christmas! 🎅
       </h1>
       {buttons.length > 0 &&
-        Array.from({ length: 5 }).map((_, rowIndex) => (
+        Array.from({ length: 6 }).map((_, rowIndex) => (
           <div
             key={rowIndex}
             className="flex gap-4 justify-center w-full"
