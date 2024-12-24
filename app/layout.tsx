@@ -19,7 +19,8 @@ const geistMono = Geist_Mono({
 });
 
 const notoSans = Noto_Sans_KR({
-  weight: '400'
+  weight: '400',
+  subsets: ["latin"],
 });
 
 export const metadata: Metadata = {

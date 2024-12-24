@@ -43,6 +43,7 @@ const ClientComponent = ({ personData, questionData }: ClientComponentProps) => 
     }
   };
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleEnter = (e: any) => {
     if (e.code === 'Enter') {
       if (e.nativeEvent.isComposing === false) {
